@@ -19,7 +19,9 @@ set -e
 
 usage() {
   cat << EOF
-Usage: $0 -t <token> -r <room id> -f <from name>
+Usage:
+    $0 -t <token> -r <room id> -f <from name>
+    $0 -v v2 -t <token> -r <room id>
 
 This script will read from stdin and send the contents to the given room as
 a system message.
@@ -70,7 +72,7 @@ while getopts “ht:r:f:c:m:o:i:l:v:n” OPTION; do
 done
 
 # check for required args
-if [[ -z $TOKEN ]] || [[ -z $ROOM_ID ]] || [[ -z $FROM ]]; then
+if [[ -z $TOKEN ]] || [[ -z $ROOM_ID ]] || [[ -z $FROM && $API == "v1" ]]; then
   usage
   exit 1
 fi
